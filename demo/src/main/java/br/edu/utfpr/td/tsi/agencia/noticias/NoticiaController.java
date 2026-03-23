@@ -10,4 +10,9 @@ public class NoticiaController {
     public String index() {
         return "Index"; // <--- Nome do arquivo HTML (sem o .html)
     }
+    @GetMapping ("/noticias") // <--- Define o endereço http://localhost:8080/noticias
+    public String noticias() {
+        return "Noticias"; // <--- Nome do arquivo HTML (sem o .html)   
+     }
+
 }
