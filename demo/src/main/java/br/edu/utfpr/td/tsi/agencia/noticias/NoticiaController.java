@@ -1,26 +1,60 @@
 package br.edu.utfpr.td.tsi.agencia.noticias;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller // <--- ESSENCIAL
 public class NoticiaController {
+    private List<Noticia> noticias = new ArrayList<>();
 
-    @GetMapping("/") // <--- Define o endereço http://localhost:8080/
-    public String index() {
-        return "Index"; // <--- Nome do arquivo HTML (sem o .html)
+    @GetMapping("/cadastrar") // <--- ESSENCIAL
+    public String cadastra(Model model) {
+        model.addAttribute("noticia", new Noticia()); // <--- ESSENCIAL
+        if (noticias.isEmpty()) {
+            System.out.println("Nenhuma notícia cadastrada.");
+        } else {
+            System.out.println("Notícias cadastradas:");
+            for (Noticia noticia : noticias) {
+                System.out
+                        .println("- " + noticia.getAutor() + " - " + noticia.getAssunto() + " - " + noticia.getEmail());
+            }
+        }
+        return "Atv/index"; // nome do arquivo HTML (sem extensão)
     }
-    @GetMapping ("/noticias") // <--- Define o endereço http://localhost:8080/noticias
-    public String noticias() {
-        return "Noticias"; // <--- Nome do arquivo HTML (sem o .html)   
-     }
-     @GetMapping ("/Seg/index") // <--- Define o endereço http://localhost:8080/Seg/index
-     public String SegIndex() {
-        return "Seg/index"; // <--- Nome do arquivo HTML (sem o .html)  
-         }
-    @GetMapping("/Seg/ExeSeg/painel")
-    public String ExeSegPainel() {
-        return "Seg/ExeSeg/painel"; // <--- Nome do arquivo HTML (sem o .html)  
+
+    @PostMapping("/salvar") // <--- ESSENCIAL
+    public String salvar(Noticia noticia) {
+        noticias.add(noticia);
+        System.out.println("Notícia cadastrada: " + noticia.getAutor());
+        return "redirect:/cadastrar"; // redireciona para a página de cadastro
     }
+
+    @GetMapping("/limpar") // <--- ESSENCIAL
+    public String limpar() {
+        noticias.clear();
+        System.out.println("Lista de notícias limpa.");
+        return "redirect:/cadastrar"; // redireciona para a página de cadastro
+    }
+
+    @GetMapping("/imprimir")
+    public String imprimir(Model model) {
+        model.addAttribute("noticias", noticias);
+        return "Atv/Result/painel";
+    }
+
+    @GetMapping("/Excluir")
+    public String excluir(Noticia noticia) {
+        // Procura na lista alguém com o mesmo autor e assunto e remove
+        noticias.removeIf(n -> n.getAutor().equals(noticia.getAutor()) &&
+                n.getAssunto().equals(noticia.getAssunto()));
+
+        System.out.println("Notícia excluída: " + noticia.getAutor());
+        return "redirect:/imprimir";
+    }
+
 }
-

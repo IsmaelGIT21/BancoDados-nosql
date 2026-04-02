@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Noticias Cadastradas</h1>
+    <ul>
+        <li th:each="noticia : ${noticias}">
+            <h2 th:text="${noticia.titulo}">Título</h2>
+            <p><strong>Assunto:</strong> <span th:text="${noticia.assunto}">Assunto</span></p>
+            <p><strong>Autor:</strong> <span th:text="${noticia.autor}">Autor</span></p>
+            <p><strong>Email:</strong> <span th:text="${noticia.email}">Email</span></p>
+            <p><strong>Data de Nascimento:</strong> <span th:text="${noticia.dataNascimento}">Data de Nascimento</span>
+            </p>
+            <p><strong>Conteúdo:</strong></p>
+            <p th:text="${noticia.assunto}">Conteúdo da notícia</p>
+            <a href="/Editar">Editar</a>
+            <!-- Passamos os atributos para o Spring montar o objeto 'noticia' do teu método -->
+            <a
+                th:href="@{/Excluir(autor=${noticia.autor}, assunto=${noticia.assunto}, email=${noticia.email})}">Excluir</a>
+
+        </li>
+    </ul>
+</body>
+
+</html>
