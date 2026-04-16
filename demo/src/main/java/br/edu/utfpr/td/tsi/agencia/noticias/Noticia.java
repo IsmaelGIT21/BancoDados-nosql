@@ -2,40 +2,14 @@ package br.edu.utfpr.td.tsi.agencia.noticias;
 
 public class Noticia {
     private String id;
-    private String autor;
-    private String email;
-    private String dataNascimento;
     private String assunto;
     private String conteudo;
     private String titulo;
+    private Autor autor;
 
 public Noticia() {
     // Construtor vazio necessário para o Spring criar a instância
 }
-
-    public String getAutor() {
-        return autor;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
 
     public String getAssunto() {
         return assunto;

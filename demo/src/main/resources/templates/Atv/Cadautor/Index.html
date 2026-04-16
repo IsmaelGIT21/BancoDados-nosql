@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org" lang="pt-br">
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Notícia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Autor</title>
 
     <style>
         body {
@@ -12,16 +12,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             margin: 0;
         }
 
-        .container {
+        .form-container {
             background: white;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            width: 350px;
+            width: 300px;
         }
 
         h1 {
@@ -35,7 +35,7 @@
             font-size: 14px;
         }
 
-        input, textarea {
+        input {
             width: 100%;
             padding: 8px;
             margin: 8px 0 15px 0;
@@ -43,12 +43,7 @@
             border: 1px solid #ccc;
         }
 
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        input:focus, textarea:focus {
+        input:focus {
             outline: none;
             border-color: #3498db;
         }
@@ -56,7 +51,7 @@
         button {
             width: 100%;
             padding: 10px;
-            background: #27ae60;
+            background: #3498db;
             color: white;
             border: none;
             border-radius: 6px;
@@ -66,7 +61,7 @@
         }
 
         button:hover {
-            background: #219150;
+            background: #2980b9;
         }
 
         .voltar {
@@ -85,23 +80,24 @@
 
 <body>
 
-    <div class="container">
-        <h1>Editar Notícia</h1>
+    <div class="form-container">
+        <form action="/salvarAutor" method="post">
 
-        <form th:action="@{/SalvarEdicao}" method="post" th:object="${noticia}">
+            <h1>Cadastrar Autor</h1>
 
-            <input type="hidden" th:field="*{id}" />
+            <label for="id">Id</label>
+            <input type="text" name="id" id="id">
 
-            <label for="titulo">Título</label>
-            <input type="text" th:field="*{titulo}" id="titulo" />
+            <label for="nome">Nome</label>
+            <input type="text" name="nome" id="nome">
 
-            <label for="assunto">Assunto</label>
-            <input type="text" th:field="*{assunto}" id="assunto" />
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email">
 
-            <label for="conteudo">Conteúdo</label>
-            <textarea th:field="*{conteudo}" id="conteudo"></textarea>
+            <label for="dataNascimento">Data de nascimento</label>
+            <input type="date" name="dataNascimento" id="dataNascimento">
 
-            <button type="submit">Salvar Alterações</button>
+            <button type="submit">Cadastrar</button>
 
         </form>
 
@@ -109,5 +105,4 @@
     </div>
 
 </body>
-
 </html>

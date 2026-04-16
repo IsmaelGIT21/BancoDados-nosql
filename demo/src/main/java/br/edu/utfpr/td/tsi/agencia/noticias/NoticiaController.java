@@ -12,26 +12,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller // <--- ESSENCIAL
 public class NoticiaController {
     private List<Noticia> noticias = new ArrayList<>();
+    private List<Autor> autores = new ArrayList<>();
 
-    @GetMapping("/cadastrar") // <--- ESSENCIAL
-    public String cadastra(Model model) {
-        model.addAttribute("noticia", new Noticia()); // <--- ESSENCIAL
-        if (noticias.isEmpty()) {
-            System.out.println("Nenhuma notícia cadastrada.");
-        } else {
-            System.out.println("Notícias cadastradas:");
-            for (Noticia noticia : noticias) {
-                System.out
-                        .println("- " + noticia.getAutor() + " - " + noticia.getAssunto() + " - " + noticia.getEmail());
-            }
-        }
-        return "Atv/index"; // nome do arquivo HTML (sem extensão)
+       @GetMapping("/Index")
+    public String index(Model model) {
+        return "/IndexP";
+    }
+    
+   @GetMapping("/cadastroAutor")
+    public String cadastroAutor(Model model) {
+        return "/Atv/Cadautor/Index";
+    }
+
+    @PostMapping("/salvarAutor")
+    public String salvarAutor(Autor autor){
+            autores.add(autor);
+            System.out.println("Autor cadastrado: " + autor.getNome() + " - " + autor.getEmail() + " - " + autor.getDataNascimento());
+            return "redirect:/cadastroAutor";
+    }
+
+    @GetMapping("/cadastrar")
+    public String cadastra(Model model) {   
+         model.addAttribute("listaautores",autores);
+        return "Atv/index";
     }
 
     @PostMapping("/salvar") // <--- ESSENCIAL
     public String salvar(Noticia noticia) {
         noticias.add(noticia);
-        System.out.println("Notícia cadastrada: " + noticia.getAutor());
+        System.out.println("Notícia cadastrada: " + noticia.getTitulo());
         return "redirect:/cadastrar"; // redireciona para a página de cadastro
     }
 
