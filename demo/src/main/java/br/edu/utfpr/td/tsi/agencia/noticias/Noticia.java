@@ -5,10 +5,9 @@ public class Noticia {
     private String assunto;
     private String conteudo;
     private String titulo;
-    private Autor autor;
 
 public Noticia() {
-    // Construtor vazio necessário para o Spring criar a instância
+
 }
 
     public String getAssunto() {
